@@ -1,7 +1,3 @@
-Here’s a sample `README.md` for your script:
-
----
-
 # Linux Administration Automation Script
 
 ## Overview  
@@ -78,6 +74,3 @@ Contributions are welcome! If you have suggestions for improving the script or a
 
 ## License  
 This project is licensed under the MIT License. Feel free to use, modify, and distribute it.
-
----
-
