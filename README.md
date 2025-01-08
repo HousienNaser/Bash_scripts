@@ -1,4 +1,4 @@
-# Administrtive Task Script
+# Administrtive Tasks Script
 
 ## Overview  
 This is a Bash script designed to simplify common Linux system administration tasks. The script provides an interactive menu for performing operations such as managing user accounts, monitoring processes, killing processes, and installing software. It’s a great tool for beginners learning Linux administration and for automating repetitive tasks.
