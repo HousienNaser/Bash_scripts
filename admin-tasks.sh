@@ -1,16 +1,17 @@
 #!/bin/bash
 
 # Global Variables
-BACKUP_DIR="/tmp/backups"
+BACKUP_DIR="/tmp/backups"  # Directory where backups will be stored
 
-# ---------------- USER MANAGEMENT ----------------9
-manage_users(){
+# ---------------- USER MANAGEMENT ----------------
+manage_users() {
     while true; do
         PS3="Select an option for User Management (1-7): "
         options=("Add User" "Delete User" "List Users" "Lock User" "Unlock User" "Add User to Group" "Change User Password" "Check User Login" "Back to Main Menu")
         select choice in "${options[@]}"; do
             case $REPLY in
                 1)
+                    # Add User
                     read -p "Enter username to add: " username
                     if id "$username" &>/dev/null; then
                         echo "User '$username' already exists!"
@@ -19,7 +20,8 @@ manage_users(){
                         echo "User '$username' added successfully!"
                     fi
                     ;;
-                2)
+                2)  
+                    # Delete User
                     read -p "Enter username to delete: " username
                     if id "$username" &>/dev/null; then
                         sudo userdel -r "$username"
@@ -28,11 +30,13 @@ manage_users(){
                         echo "User '$username' does not exist!"
                     fi
                     ;;
-                3)
+                3)  
+                    # List Users
                     echo "Existing System Users:"
                     cut -d: -f1 /etc/passwd
                     ;;
-                4) 
+                4)  
+                    # Lock User
                     read -p "Enter username to lock: " username
                     if id "$username" &>/dev/null; then
                         sudo usermod -L "$username"
@@ -40,8 +44,9 @@ manage_users(){
                     else
                         echo "User '$username' does not exist!" 
                     fi
-                 ;;
-                5)
+                    ;;
+                5)  
+                    # Unlock User
                     read -p "Enter username to unlock: " username
                     if id "$username" &>/dev/null; then
                         sudo usermod -U "$username"
@@ -50,7 +55,8 @@ manage_users(){
                         echo "User '$username' does not exist!"
                     fi
                     ;;
-                6) 
+                6)  
+                    # Add User to Group
                     read -p "Enter username to add to a group: " username
                     read -p "Enter group name: " groupname
                     if id "$username" &>/dev/null; then
@@ -60,8 +66,8 @@ manage_users(){
                         echo "User '$username' does not exist!"
                     fi
                     ;;
-                
-                 7) 
+                7)  
+                    # Change User Password
                     read -p "Enter username to change the password: " username
                     if id "$username" &>/dev/null; then
                         sudo passwd "$username"
@@ -69,25 +75,26 @@ manage_users(){
                         echo "User '$username' does not exist!" 
                     fi 
                     ;; 
-                    
-                    8) 
-                        read -p "Enter username to check if logged in: " username 
-                        if who | grep -w "$username" &>/dev/null; then 
-                            echo "User '$username' is currently logged in." 
-                        else 
-                            echo "User '$username' is not logged in." 
-                        fi 
-                        ;;
-                    9)
-                        return  # Exit the function and return to the main menu
+                8)  
+                    # Check User Login Status
+                    read -p "Enter username to check if logged in: " username 
+                    if who | grep -w "$username" &>/dev/null; then 
+                        echo "User '$username' is currently logged in." 
+                    else 
+                        echo "User '$username' is not logged in." 
+                    fi 
                     ;;
-                    *)
-                        echo "Invalid option. Try again."
+                9)      
+                    # Back to Main Menu
+                    return  
+                    ;;
+                *)  
+                    # Invalid Option
+                    echo "Invalid option. Try again."
                     ;;
             esac
-                echo ""
-                # Exit the select loop to re-display the menu
-                break 
+            echo ""
+            break  # Exit the select loop to re-display the menu
         done
     done
 }
@@ -107,36 +114,43 @@ monitor_system() {
     while true; do
         select choice in "${options[@]}"; do
             case $REPLY in
-                1) 
+                1)  
+                    # View Disk Usage
                     echo "Disk Usage:"
                     df -h
                     ;;
-                2) 
+                2)  
+                    # Check Memory Usage
                     echo "Memory Usage:"
                     free -h
                     ;;
-                3) 
+                3)  
+                    # List Active Processes
                     echo "Active Processes:"
                     ps aux
                     ;;
-                4) 
+                4)  
+                    # Monitor CPU Usage
                     echo "CPU Usage:"
                     top -n 1 -b | head -n 12
                     ;;
-                5) 
+                5)  
+                    # Check Network Statistics
                     echo "Network Statistics:"
                     netstat -s
                     ;;
-                6) 
+                6)  
+                    # View System Uptime
                     echo "System Uptime:"
                     uptime
                     ;;
-
-                7) 
+                7)  
+                    # Back to Main Menu
                     echo "Returning to Main Menu..."
                     return
                     ;;
-                *)
+                *)  
+                    # Invalid Option
                     echo "Invalid option. Please try again."
                     ;;
             esac
@@ -153,27 +167,32 @@ manage_services() {
         options=("Start Service" "Stop Service" "Check Service Status" "Back to Main Menu")
         select choice in "${options[@]}"; do
             case $REPLY in
-                1)
+                1)  
+                    # Start Service
                     read -p "Enter service name to start: " service
                     sudo systemctl start "$service" && echo "Service '$service' started successfully!" || echo "Failed to start service '$service'."
                     ;;
-                2)
+                2)  
+                    # Stop Service
                     read -p "Enter service name to stop: " service
                     sudo systemctl stop "$service" && echo "Service '$service' stopped successfully!" || echo "Failed to stop service '$service'."
                     ;;
-                3)
+                3)  
+                    # Check Service Status
                     read -p "Enter service name to check status: " service
                     sudo systemctl status "$service"
                     ;;
-                4)
+                4)  
+                    # Back to Main Menu
                     return
                     ;;
-                *)
+                *)  
+                    # Invalid Option
                     echo "Invalid option. Try again."
                     ;;
             esac
             echo ""
-            break
+            break # Exit the select loop to re-display the menu
         done
     done
 }
@@ -188,48 +207,54 @@ view_logs() {
             while true; do
                 select choice in "${options[@]}"; do
                     case $REPLY in
-                        1) cat "$log_file" ;;
-                        2)
+                        1)  
+                            # View Entire Log
+                            cat "$log_file"
+                            ;;
+                        2)  
+                            # Search Log
                             read -p "Enter search term: " term
                             grep -i "$term" "$log_file"
                             ;;
-                        3)
+                        3)  
+                            # Filter Log by Keyword
                             read -p "Enter keyword to filter: " keyword
                             grep -iw "$keyword" "$log_file"
                             ;;
-
-                        4) return;;
-
-                        *)
+                        4)  
+                            # Back to Main Menu
+                            return
+                            ;;
+                        *)  
+                            # Invalid Option
                             echo "Invalid option. Try again."
-                            break;;
-                        
+                            break
+                            ;;
                     esac
-                        echo ""
-                        break
+                    echo ""
+                    break 
                 done
             done
-        
         else
             echo "Log file '$log_file' does not exist."
             break
-        
         fi
     done
 }
 
-# ---------------- BACKUP UTILITY ----------------
-backup_utility() {
+# ---------------- BACKUP MANAGER ----------------
+backup_manager() {
     if [[ ! -d "$BACKUP_DIR" ]]; then
-        mkdir -p "$BACKUP_DIR"
+        mkdir -p "$BACKUP_DIR"  # Create backup directory if it doesn't exist
     fi
 
-        PS3="Select an option for Backup Utility (1-4): "
-        options=("Create Backup" "Restore Backup" "List Backups" "Back to Main Menu")
-        while true; do
-            select choice in "${options[@]}"; do
-                case $REPLY in
-                1)
+    PS3="Select an option for Backup Utility (1-4): "
+    options=("Create Backup" "Restore Backup" "List Backups" "Back to Main Menu")
+    while true; do
+        select choice in "${options[@]}"; do
+            case $REPLY in
+                1)  
+                    # Create Backup
                     read -p "Enter directory to backup: " dir
                     if [[ -d "$dir" ]]; then
                         tar_file="$BACKUP_DIR/$(basename "$dir")_backup_$(date +%Y%m%d%H%M%S).tar.gz"
@@ -239,7 +264,8 @@ backup_utility() {
                         echo "Directory '$dir' does not exist."
                     fi
                     ;;
-                2)
+                2)  
+                    # Restore Backup
                     read -p "Enter backup file to restore: " tar_file
                     if [[ -f "$tar_file" ]]; then
                         tar -xzf "$tar_file" -C /
@@ -248,33 +274,37 @@ backup_utility() {
                         echo "Backup file '$tar_file' does not exist."
                     fi
                     ;;
-                3)
+                3)     
+                    # List Backups
                     echo "Available Backups:"
                     ls "$BACKUP_DIR"
                     ;;
-                4)
+                4)  
+                    # Back to Main Menu
                     return 
-                    ;; # Exit the function and return to the main menu
-                esac
-            done
+                    ;;
+                *)  
+                    # Invalid Option
+                    echo "Invalid option. Try again."
+                    ;;
+            esac
         done
+    done
 }
 
 # THE MAIN MENU
-while true
-do
+while true; do
     PS3="Your choice: "
-    options=("User Management" "System Monitoring" "Service Management" "Log Viewer" "Backup Utility" "Exit" )
-    select main_choice in "${options[@]}"
-    do
+    options=("User Management" "System Monitoring" "Service Management" "Log Viewer" "Backup Utility" "Exit")
+    select main_choice in "${options[@]}"; do
         case $REPLY in
-            1) manage_users ;;
-            2) monitor_system ;;
-            3) manage_services ;;
-            4) view_logs ;;
-            5) backup_utility ;;
-            6) echo "Exiting. Goodbye!" ; exit 0 ;;
-            *) echo "Invalid option. Please try again." ;;
+            1) manage_users ;;  
+            2) monitor_system ;;  
+            3) manage_services ;;  
+            4) view_logs ;;  
+            5) backup_manager ;;  
+            6) echo "Exiting. Goodbye!" ; exit 0 ;;  # Exit the script
+            *) echo "Invalid option. Please try again." ;;  
         esac
         break
     done
