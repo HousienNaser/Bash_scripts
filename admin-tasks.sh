@@ -85,12 +85,14 @@ manage_users() {
                     fi 
                     ;;
                 9)      
-                    # Back to Main Menu
+                    echo "retruning to main menu"
+                    sleep 1
                     return  
                     ;;
                 *)  
-                    # Invalid Option
+                   
                     echo "Invalid option. Try again."
+                    sleep 1
                     ;;
             esac
             echo ""
@@ -145,13 +147,13 @@ monitor_system() {
                     uptime
                     ;;
                 7)  
-                    # Back to Main Menu
                     echo "Returning to Main Menu..."
+                    sleep 1
                     return
                     ;;
                 *)  
-                    # Invalid Option
                     echo "Invalid option. Please try again."
+                    sleep 1
                     ;;
             esac
             echo ""
@@ -183,16 +185,18 @@ manage_services() {
                     sudo systemctl status "$service"
                     ;;
                 4)  
-                    # Back to Main Menu
+                    echo "Returning to Main Menu..."
+                    sleep 1
                     return
                     ;;
                 *)  
                     # Invalid Option
                     echo "Invalid option. Try again."
+                    sleep 1
                     ;;
             esac
             echo ""
-            break # Exit the select loop to re-display the menu
+            break 
         done
     done
 }
@@ -222,12 +226,13 @@ view_logs() {
                             grep -iw "$keyword" "$log_file"
                             ;;
                         4)  
-                            # Back to Main Menu
+                            echo "Returning to Main Menu..."
+                            sleep 1
                             return
                             ;;
                         *)  
-                            # Invalid Option
                             echo "Invalid option. Try again."
+                            sleep 1
                             break
                             ;;
                     esac
@@ -280,12 +285,13 @@ backup_manager() {
                     ls "$BACKUP_DIR"
                     ;;
                 4)  
-                    # Back to Main Menu
+                    echo "Returning to Main Menu..."
+                    sleep 1
                     return 
                     ;;
                 *)  
-                    # Invalid Option
                     echo "Invalid option. Try again."
+                    sleep 1
                     ;;
             esac
         done
@@ -303,7 +309,7 @@ while true; do
             3) manage_services ;;  
             4) view_logs ;;  
             5) backup_manager ;;  
-            6) echo "Exiting. Goodbye!" ; exit 0 ;;  # Exit the script
+            6) echo "Exiting. Goodbye!" ; exit 0 ;;  
             *) echo "Invalid option. Please try again." ;;  
         esac
         break

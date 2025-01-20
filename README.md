@@ -1,83 +1,67 @@
-# System Management Script - README
+# System Management Script
 
-This script is a comprehensive system management tool designed to simplify user management, system monitoring, service management, log viewing, and backup operations. It provides an interactive menu-driven interface for performing various administrative tasks on a Linux system.
-
----
+This script is a comprehensive tool for managing various aspects of a Linux system. It provides a menu-driven interface for performing tasks related to user management, system monitoring, service management, log viewing, and backup management.
 
 ## Features
 
 ### 1. **User Management**
-   - Add a new user.
-   - Delete an existing user.
-   - List all system users.
-   - Lock or unlock a user account.
-   - Add a user to a group.
-   - Change a user's password.
-   - Check if a user is currently logged in.
+   - **Add User**: Adds a new user to the system.
+   - **Delete User**: Deletes an existing user from the system.
+   - **List Users**: Lists all users on the system.
+   - **Lock User**: Locks a user account to prevent login.
+   - **Unlock User**: Unlocks a previously locked user account.
+   - **Add User to Group**: Adds a user to a specified group.
+   - **Change User Password**: Changes the password for a user.
+   - **Check User Login**: Checks if a user is currently logged in.
 
 ### 2. **System Monitoring**
-   - View disk usage (`df -h`).
-   - Check memory usage (`free -h`).
-   - List active processes (`ps aux`).
-   - Monitor CPU usage (`top`).
-   - Check network statistics (`netstat -s`).
-   - View system uptime (`uptime`).
+   - **View Disk Usage**: Displays disk usage information.
+   - **Check Memory Usage**: Shows memory usage statistics.
+   - **List Active Processes**: Lists all active processes.
+   - **Monitor CPU Usage**: Displays CPU usage information.
+   - **Check Network Statistics**: Shows network statistics.
+   - **View System Uptime**: Displays the system uptime.
 
 ### 3. **Service Management**
-   - Start a service.
-   - Stop a service.
-   - Check the status of a service.
+   - **Start Service**: Starts a specified system service.
+   - **Stop Service**: Stops a specified system service.
+   - **Check Service Status**: Displays the status of a specified service.
 
 ### 4. **Log Viewer**
-   - View the entire contents of a log file.
-   - Search for specific terms in a log file.
-   - Filter logs by a keyword.
+   - **View Entire Log**: Displays the entire contents of a specified log file.
+   - **Search Log**: Searches a log file for a specified term.
+   - **Filter Log by Keyword**: Filters a log file by a specified keyword.
 
 ### 5. **Backup Utility**
-   - Create a backup of a directory (stored in `/tmp/backups`).
-   - Restore a backup from a `.tar.gz` file.
-   - List all available backups.
+   - **Create Backup**: Creates a backup of a specified directory.
+   - **Restore Backup**: Restores a backup from a specified backup file.
+   - **List Backups**: Lists all available backups in the backup directory.
 
----
+## Usage
 
-## How to Use
+1. **Running the Script**:
+   - Ensure the script has execute permissions:
+     ```bash
+     chmod +x system_management.sh
+     ```
+   - Run the script:
+     ```bash
+     ./system_management.sh
+     ```
 
-1. **Save the Script**:
-   - Save the script to a file, e.g., `system_manager.sh`.
+2. **Navigating the Menu**:
+   - The script presents a main menu with options for each management category.
+   - Select an option by entering the corresponding number.
+   - Each category has its own sub-menu with specific tasks.
 
-2. **Make the Script Executable**:
-   ```bash
-   chmod +x system_manager.sh
-   ```
-
-3. **Run the Script**:
-   ```bash
-   sudo ./system_manager.sh
-   ```
-   - **Note**: Some operations (e.g., user management, service management) require root privileges, so run the script with `sudo`.
-
-4. **Navigate the Menu**:
-   - The script presents a main menu with options for each functionality.
-   - Use the number keys to select an option and follow the prompts.
-
----
+3. **Exiting the Script**:
+   - To exit the script, select the "Exit" option from the main menu.
 
 ## Global Variables
 
-- `BACKUP_DIR="/tmp/backups"`: The directory where backups are stored. You can modify this path if needed.
-
----
+- `BACKUP_DIR`: The directory where backups will be stored. Default is `/tmp/backups`.
 
 ## Notes
-- **Backups**: Backups are stored in `/tmp/backups` by default. Ensure this directory exists or modify the `BACKUP_DIR` variable.
-- **Logs**: The log viewer requires the full path to the log file (e.g., `/var/log/syslog`).
-- **Permissions**: Some operations (e.g., user management, service management) require root privileges.
 
----
-
-## License
-This script is provided as-is under the MIT License. Feel free to modify and distribute it as needed.
-
----
-
-Enjoy managing your system with ease! 🚀
+- **Permissions**: Some operations (e.g., user management, service management) require root privileges. Ensure you run the script with `sudo` if necessary.
+- **Log File Path**: When using the log viewer, provide the full path to the log file you wish to view or search.
